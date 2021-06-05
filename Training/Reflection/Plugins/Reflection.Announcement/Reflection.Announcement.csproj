@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <AssemblyVersion>1.0.1.14553</AssemblyVersion>
+    <FileVersion>1.0.1.14553</FileVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Reflection.Shared\Reflection.Shared.csproj" />
+  </ItemGroup>
+
+</Project>
