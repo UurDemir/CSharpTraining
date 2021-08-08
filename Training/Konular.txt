@@ -1,0 +1,3 @@
+﻿• List nasıl çalışıyor ? Kendi listemizi nasıl oluştururuz. - √
+• Dependency Injection nedir ?  Nasıl kullanılır ? - √
+• Aspect Oriented Programing nedir ? Nasıl Kullanılır ? - √

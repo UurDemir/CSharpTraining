@@ -1,0 +1,8 @@
+﻿• Task ve ConfigureAwait nedir ? Nasıl kullanılır ? - √
+• Herhangi bir noktada, hangi metotlar tarafından çağrıldığını hata almadan nasıl anlarız ? - √
+• Bazı Attributeler (ObsoleteAttribute,DebuggerDisplay,DebuggerBrowsable,DebuggerStepThrough,ThreadStaticAttribute,FlagsAttribute) - √
+• ExceptionDispatchInfo - √
+• Environment.FailFast ( Finally block unu es geçme) - √
+• Static Constructor - √
+• Where keyword - √
+• İmplicit ve explicit keywordleri - √
