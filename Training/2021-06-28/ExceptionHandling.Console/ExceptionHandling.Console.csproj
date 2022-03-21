@@ -5,6 +5,7 @@
     <TargetFramework>net5.0</TargetFramework>
     <AssemblyName>ExceptionHandling.Consol</AssemblyName>
     <RootNamespace>ExceptionHandling.Consol</RootNamespace>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
 </Project>

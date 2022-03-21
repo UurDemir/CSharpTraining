@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Reflection.Shared
+﻿namespace Reflection.Shared
 {
     public interface IPlugin
     {
