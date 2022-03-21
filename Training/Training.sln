@@ -51,6 +51,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Redis.Benchmark", "2022-03-18\Redis\Redis.Benchmark\Redis.Benchmark.csproj", "{CC3271CC-B04F-4F30-9319-EBFF3B7D8BA1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".SolutionItems", ".SolutionItems", "{493DDD73-90A3-4569-B338-DA984F1BB03E}"
+	ProjectSection(SolutionItems) = preProject
+		..\README.md = ..\README.md
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".Common", ".Common", "{FF020781-7739-4765-8AAC-E3C15C577E32}"
 EndProject
