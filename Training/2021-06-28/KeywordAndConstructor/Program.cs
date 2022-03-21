@@ -78,7 +78,7 @@ namespace KeywordAndConstructor
 
         public ProgramInfo()
         {
-            StackTrace stackTrace = new StackTrace();
+            StackTrace stackTrace = new();
             var first = stackTrace.GetFrame(stackTrace.FrameCount - 2);
 
             CurrentJob = first.GetMethod().Name;

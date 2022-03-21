@@ -11,22 +11,24 @@ namespace Redis.Benchmark
     {
         public static byte[] Compress(byte[] data)
         {
-            MemoryStream output = new MemoryStream();
-            using (DeflateStream dstream = new DeflateStream(output, CompressionLevel.SmallestSize))
-            {
-                dstream.Write(data, 0, data.Length);
-            }
+            using MemoryStream output = new();
+
+            using DeflateStream deflateStream = new(output, CompressionLevel.SmallestSize);
+            
+            deflateStream.Write(data, 0, data.Length);
+
             return output.ToArray();
         }
 
         public static byte[] Decompress(byte[] data)
         {
-            MemoryStream input = new MemoryStream(data);
-            MemoryStream output = new MemoryStream();
-            using (DeflateStream dstream = new DeflateStream(input, CompressionMode.Decompress))
-            {
-                dstream.CopyTo(output);
-            }
+            using MemoryStream input = new(data);
+            using MemoryStream output = new();
+
+            using DeflateStream deflateStream = new(input, CompressionMode.Decompress);
+            
+            deflateStream.CopyTo(output);
+
             return output.ToArray();
         }
     }

@@ -8,26 +8,29 @@ using StackExchange.Redis;
 
 
 
-
+//Configure program to use appsettings.json for configurations
 Configure();
 
-Init();
+// Prepare Redis data
+PrepareRedis();
 
+//Run Benchmark
 BenchmarkRunner.Run<RedisVsSQL>();
 
 
-
-void Init()
+/// <summary>
+/// Fetch data from SQL and add to Redis to run Benchmark
+/// </summary>
+void PrepareRedis()
 {
-    ThreadPool.SetMinThreads(200, 200);
     Console.WriteLine("Retrieving Data");
+
     List<Reseller> resellers = SQLHelper.GetResellers();
 
-    using ConnectionMultiplexer connection = ConnectionMultiplexer.Connect(CommonHelper.configuration.GetConnectionString("RedisConnection"));
+    using ConnectionMultiplexer connection = ConnectionMultiplexer.Connect(CommonHelper.Configuration.GetConnectionString("RedisConnection"));
 
     IDatabase database = connection.GetDatabase();
-
-
+    
     Console.WriteLine("Reseller Count : " + resellers.Count);
 
     for (var index = 1; index <= resellers.Count; index++)
@@ -59,16 +62,19 @@ void Init()
     Console.WriteLine("All Items Finish");
 }
 
+/// <summary>
+/// Configure IConfigurationRoot to use appsettings.json
+/// </summary>
 void Configure()
 {
-    CommonHelper.configuration = new ConfigurationBuilder()
+    CommonHelper.Configuration = new ConfigurationBuilder()
         .SetBasePath(Directory.GetParent(AppContext.BaseDirectory)!.FullName)
         .AddJsonFile("appsettings.json", false)
         .Build();
 
-    ServiceCollection serviceCollection = new ServiceCollection();
+    ServiceCollection serviceCollection = new();
 
-    serviceCollection.AddSingleton(CommonHelper.configuration);
+    serviceCollection.AddSingleton(CommonHelper.Configuration);
 
     IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
 

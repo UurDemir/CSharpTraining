@@ -1,3 +1,18 @@
+# Redis
+
+## Installation Resources 
+Redis : https://redis.com/blog/redis-on-windows-10/
+Redis Remote Access : https://stackoverflow.com/a/19091231
+
+### Windows WSDL Resources
+Windows 10 WSDL Activation : https://docs.microsoft.com/en-us/windows/wsl/setup/environment#set-up-your-linux-username-and-password
+Windows Server WSDL Activation : https://docs.microsoft.com/en-us/windows/wsl/install-on-server
+
+### Example Database Resources
+AdventureWorks Database : https://docs.microsoft.com/en-us/sql/samples/adventureworks-install-configure?view=sql-server-ver15&tabs=ssms
+
+## Redis vs SQL Benchmark Results
+
 ``` ini
 
 BenchmarkDotNet=v0.13.1, OS=Windows 10.0.19043.1586 (21H1/May2021Update)

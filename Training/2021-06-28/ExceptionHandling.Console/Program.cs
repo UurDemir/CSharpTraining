@@ -40,7 +40,7 @@ namespace ExceptionHandling.Consol
             }
             catch (Exception exception)
             {
-                if (ignoreFinally) Environment.FailFast("Finally block is not run", exception);
+                if (ignoreFinally) Environment.FailFast("Finally block will not run", exception);
 
                 throw;
             }
@@ -110,11 +110,11 @@ namespace ExceptionHandling.Consol
         {
             try
             {
-                throw new Exception("Throwed Exception");
+                throw new("Throwed Exception");
             }
             catch (Exception exception)
             {
-                StackTrace stackTract = new StackTrace(exception, true);
+                StackTrace stackTract = new(exception, true);
                 StackFrame[] stackFrames = stackTract.GetFrames();
 
                 foreach (var stackFrame in stackFrames)
@@ -132,7 +132,7 @@ namespace ExceptionHandling.Consol
 
         private static int GetStackTrace()
         {
-            StackTrace stackTract = new StackTrace(true);
+            StackTrace stackTract = new(true);
             StackFrame[] stackFrames = stackTract.GetFrames();
 
             foreach (var stackFrame in stackFrames)

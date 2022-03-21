@@ -40,11 +40,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspectOriented", "2021-08-08\AspectOriented\AspectOriented.csproj", "{D65C3CE2-A006-458B-B4FA-B88989A1B5F3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2022-03-18", "2022-03-18", "{D17DAB67-133F-4300-807C-D8B68ACB323A}"
-	ProjectSection(SolutionItems) = preProject
-		..\..\..\..\Users\Tylesser\OneDrive\Workshops\NoSql\Resources.txt = ..\..\..\..\Users\Tylesser\OneDrive\Workshops\NoSql\Resources.txt
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Redis", "Redis", "{48111B5C-D1EE-441D-9903-1415442BDD80}"
+	ProjectSection(SolutionItems) = preProject
+		2022-03-18\Redis\README.md = 2022-03-18\Redis\README.md
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Redis.Terminal", "2022-03-18\Redis\Redis.Terminal\Redis.Terminal.csproj", "{21B450CA-106D-4B67-8BB9-AF41E1D494D9}"
 EndProject

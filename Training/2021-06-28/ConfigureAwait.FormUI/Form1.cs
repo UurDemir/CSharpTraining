@@ -46,14 +46,14 @@ namespace ConfigureAwait.FormUI
 
         private async Task<string> GetGoogleHtml()
         {
-            using HttpClient httpClient = new HttpClient();
+            using HttpClient httpClient = new();
             HttpResponseMessage response = await httpClient.GetAsync("https://google.com");
             return await response.Content.ReadAsStringAsync();
         }
 
         private async Task<string> GetGoogleHtmlFixed()
         {
-            using HttpClient httpClient = new HttpClient();
+            using HttpClient httpClient = new();
             HttpResponseMessage response = await httpClient.GetAsync("https://google.com").ConfigureAwait(false);
 
             return await response.Content.ReadAsStringAsync().ConfigureAwait(false);

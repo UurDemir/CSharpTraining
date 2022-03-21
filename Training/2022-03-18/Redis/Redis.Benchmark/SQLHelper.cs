@@ -9,7 +9,7 @@ namespace Redis.Benchmark
         public static int TotalCount = 10;
         public static Reseller? GetReseller(int resellerKey)
         {
-            using AdventureWorksDW2017Context context = new AdventureWorksDW2017Context(CommonHelper.configuration);
+            using AdventureWorksDW2017Context context = new(CommonHelper.Configuration);
 
             Reseller? reseller = context.DimResellers
                .AsNoTracking()
@@ -37,7 +37,7 @@ namespace Redis.Benchmark
                     SalesOrderNumber = sale.SalesOrderNumber,
                     DueDate = sale.DueDate,
                     OrderDate = sale.OrderDate,
-                    EmployeeKeyNavigation = new DimEmployee
+                    EmployeeKeyNavigation = new()
                     {
                         FirstName = sale.EmployeeKeyNavigation.FirstName,
                         LastName = sale.EmployeeKeyNavigation.LastName,
@@ -47,11 +47,11 @@ namespace Redis.Benchmark
                     ShipDate = sale.ShipDate,
                     SalesAmount = sale.SalesAmount,
                     OrderQuantity = sale.OrderQuantity,
-                    CurrencyKeyNavigation = new DimCurrency
+                    CurrencyKeyNavigation = new()
                     {
                         CurrencyAlternateKey = sale.CurrencyKeyNavigation.CurrencyAlternateKey
                     },
-                    ProductKeyNavigation = new DimProduct
+                    ProductKeyNavigation = new()
                     {
                         ProductAlternateKey = sale.ProductKeyNavigation.ProductAlternateKey,
                         EnglishProductName = sale.ProductKeyNavigation.EnglishProductName,
@@ -71,7 +71,7 @@ namespace Redis.Benchmark
 
         public static List<Reseller> GetResellers()
         {
-            using AdventureWorksDW2017Context context = new AdventureWorksDW2017Context(CommonHelper.configuration);
+            using AdventureWorksDW2017Context context = new(CommonHelper.Configuration);
 
             IQueryable<Reseller> queryable = context.DimResellers
                 .AsNoTracking()
@@ -101,7 +101,7 @@ namespace Redis.Benchmark
                     SalesOrderNumber = sale.SalesOrderNumber,
                     DueDate = sale.DueDate,
                     OrderDate = sale.OrderDate,
-                    EmployeeKeyNavigation = new DimEmployee
+                    EmployeeKeyNavigation = new()
                     {
                         FirstName = sale.EmployeeKeyNavigation.FirstName,
                         LastName = sale.EmployeeKeyNavigation.LastName,
@@ -111,11 +111,11 @@ namespace Redis.Benchmark
                     ShipDate = sale.ShipDate,
                     SalesAmount = sale.SalesAmount,
                     OrderQuantity = sale.OrderQuantity,
-                    CurrencyKeyNavigation = new DimCurrency
+                    CurrencyKeyNavigation = new()
                     {
                         CurrencyAlternateKey = sale.CurrencyKeyNavigation.CurrencyAlternateKey
                     },
-                    ProductKeyNavigation = new DimProduct
+                    ProductKeyNavigation = new()
                     {
                         ProductAlternateKey = sale.ProductKeyNavigation.ProductAlternateKey,
                         EnglishProductName = sale.ProductKeyNavigation.EnglishProductName
@@ -139,7 +139,7 @@ namespace Redis.Benchmark
         public static ResellerOrder MapOrder(IGrouping<string, FactResellerSale> orderG)
         {
             var firstItem = orderG.First();
-            return new ResellerOrder
+            return new()
             {
                 DueDate = firstItem.DueDate,
                 EmployeeName = firstItem.EmployeeKeyNavigation.FirstName + " " +

@@ -96,7 +96,7 @@ void Configure()
         .AddJsonFile("appsettings.json", false)
         .Build();
 
-    ServiceCollection serviceCollection = new ServiceCollection();
+    ServiceCollection serviceCollection = new();
 
     serviceCollection.AddSingleton(configuration);
 

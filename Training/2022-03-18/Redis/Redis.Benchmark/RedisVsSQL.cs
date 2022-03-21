@@ -16,7 +16,7 @@ namespace Redis.Benchmark
         private ConnectionMultiplexer connection;
         private IDatabase database;
 
-        public static JsonSerializerOptions options = new JsonSerializerOptions
+        public static JsonSerializerOptions options = new()
         {
             ReferenceHandler = ReferenceHandler.IgnoreCycles
         };
@@ -25,9 +25,9 @@ namespace Redis.Benchmark
         public RedisVsSQL()
         {
             Configure();
-            connection = ConnectionMultiplexer.Connect(CommonHelper.configuration.GetConnectionString("RedisConnection"));
+            connection = ConnectionMultiplexer.Connect(CommonHelper.Configuration.GetConnectionString("RedisConnection"));
             database = connection.GetDatabase();
-            using AdventureWorksDW2017Context context = new AdventureWorksDW2017Context(CommonHelper.configuration);
+            using AdventureWorksDW2017Context context = new(CommonHelper.Configuration);
 
             resellerIds = context.DimResellers.Take(SQLHelper.TotalCount).Select(re => re.ResellerKey).ToArray();
         }
@@ -155,14 +155,14 @@ namespace Redis.Benchmark
 
         void Configure()
         {
-            CommonHelper.configuration = new ConfigurationBuilder()
+            CommonHelper.Configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetParent(AppContext.BaseDirectory)!.FullName)
                 .AddJsonFile("appsettings.json", false)
                 .Build();
 
-            ServiceCollection serviceCollection = new ServiceCollection();
+            ServiceCollection serviceCollection = new();
 
-            serviceCollection.AddSingleton(CommonHelper.configuration);
+            serviceCollection.AddSingleton(CommonHelper.Configuration);
 
             IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
 

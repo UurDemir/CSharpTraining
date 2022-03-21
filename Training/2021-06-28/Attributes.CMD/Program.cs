@@ -7,6 +7,7 @@ namespace Attributes.CMD
 {
     class Program
     {
+        // ThreadStaticAttribute makes static field unique to one Thread field is created.
         [ThreadStatic]
         public static int Value = 0;
 
@@ -15,7 +16,7 @@ namespace Attributes.CMD
             Person person = new()
             {
                 Age = 26,
-                BirthDate = new DateTime(1995, 02, 27),
+                BirthDate = new(1995, 02, 27),
                 FirstName = "Uğur",
                 LastName = "Demir",
                 Skill = SkillType.CSharp | SkillType.Angular | SkillType.SQL | SkillType.Html 
@@ -54,17 +55,20 @@ namespace Attributes.CMD
         }
     }
 
+    // Via DebuggerDisplayAttribute object information that can be seen as debugging can be customize
     [DebuggerDisplay("FullName : {FirstName} {LastName} Age : {Age}")]
     class Person
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
+        // DebuggerBrowsableAttribute hide field in debug window
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public int Age { get; set; }
         public DateTime BirthDate { get; set; }
         public SkillType Skill { get; set; }
 
+        // ObsoleteAttribute can be used to inform developer that field/method won't be used in feature releases or already removed.
         [Obsolete("Bu metot bir sonraki release ile beraber kullanılmayacaktır. Lütfen GetAgeFromBirthDate kullanınız.", true, UrlFormat = "https://google.com")]
         public int GetAge()
         {
@@ -77,6 +81,7 @@ namespace Attributes.CMD
         }
     }
 
+    // FlagsAttribute makes an Enum multiple selectable. All Enum values must be power of two
     [Flags]
     public enum SkillType
     {
@@ -91,6 +96,7 @@ namespace Attributes.CMD
 
     public static class StringExtension
     {
+        //DebuggerStepThroughAttribute give method the ability of skipping while debugging
         [DebuggerStepThrough]
         public static bool IsNullOrEmpty(this string text)
         {

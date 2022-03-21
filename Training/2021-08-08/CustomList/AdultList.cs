@@ -33,10 +33,10 @@ namespace CustomList
         public void Add(Person item)
         {
             if (item.BirthDate > DateTime.Today.AddYears(-25))
-                throw new Exception("25 yaşından küçükler listeye eklenemez.");
+                throw new("25 yaşından küçükler listeye eklenemez.");
 
             if (item.Gender == Gender.Undefined)
-                throw new Exception("Cinsiyet belirtilmesi gerekmektedir.");
+                throw new("Cinsiyet belirtilmesi gerekmektedir.");
 
             if (size == people.Length)
                 EnsureSize(size+1);

@@ -13,7 +13,7 @@ namespace CustomList
                 FirstName = "Mehmet",
                 LastName = "Çavuş",
                 Gender = Gender.Male,
-                BirthDate = new DateTime(1996, 3, 13)
+                BirthDate = new(1996, 3, 13)
             };
 
             Person mervePerson = new()
@@ -21,7 +21,7 @@ namespace CustomList
                 FirstName = "Merve",
                 LastName = "Demir",
                 Gender = Gender.Female,
-                BirthDate = new DateTime(2008, 7, 10)
+                BirthDate = new(2008, 7, 10)
             };
 
             Person unknownPerson = new()

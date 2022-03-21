@@ -9,6 +9,6 @@ namespace Redis.Benchmark
 {
     public static class CommonHelper
     {
-        public static IConfigurationRoot configuration;
+        public static IConfigurationRoot Configuration;
     }
 }
