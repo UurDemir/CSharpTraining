@@ -5,13 +5,18 @@ namespace AdventureWork.Models
 {
     public partial class AdventureWorksDW2017Context : DbContext
     {
-        private readonly IConfigurationRoot configuration;
+        private readonly IConfigurationRoot? configuration = null;
+        readonly string connectionString = string.Empty;
 
         public AdventureWorksDW2017Context()
         {
-            
+
         }
 
+        public AdventureWorksDW2017Context(string connectionString)
+        {
+            this.connectionString = connectionString;
+        }
 
         public AdventureWorksDW2017Context(IConfigurationRoot configuration)
         {
@@ -63,7 +68,11 @@ namespace AdventureWork.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(configuration.GetConnectionString("AdventureWorksConnection"));
+                if (configuration is not null)
+                    optionsBuilder.UseSqlServer(configuration.GetConnectionString("AdventureWorksConnection"));
+                else if (!string.IsNullOrEmpty(connectionString))
+                    optionsBuilder.UseSqlServer(connectionString);
+
             }
         }
 
