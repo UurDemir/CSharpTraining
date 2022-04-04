@@ -72,7 +72,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2022-04-02", "2022-04-02", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Performance", "Performance", "{2ECF10E8-BAAA-4547-B7AD-217AC67601CA}"
 	ProjectSection(SolutionItems) = preProject
-		2022-03-18\Redis\README.md = 2022-03-18\Redis\README.md
+		2022-04-02\README.md = 2022-04-02\README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Performance.Immutable", "2022-04-02\Performance.Immutable\Performance.Immutable.csproj", "{9DC0679D-A45B-4B1E-8F03-9FF49F5C80C7}"
@@ -94,7 +94,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IsolationLevels", "Isolatio
 		2022-04-02\Database.sql = 2022-04-02\Database.sql
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLTransactionIsolationLevel", "2022-04-02\SQLTransactionIsolationLevel\SQLTransactionIsolationLevel.csproj", "{D65DF641-57E1-4958-9772-99A8364FD86F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SQLTransactionIsolationLevel", "2022-04-02\SQLTransactionIsolationLevel\SQLTransactionIsolationLevel.csproj", "{D65DF641-57E1-4958-9772-99A8364FD86F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
