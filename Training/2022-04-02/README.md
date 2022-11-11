@@ -29,3 +29,4 @@ AMD Ryzen 5 5600X, 1 CPU, 12 logical and 6 physical cores
 |                 EF7-BulkInsert |  22.427 ms | 0.2754 ms | 0.2576 ms |  187.5000 |   93.7500 |        - |  3319.28 KB |
 |                     EF6-Delete | 280.11 ms | 2.538 ms | 2.120 ms |         - |         - |        - |   4.62 MB |
 |                     EF7-Delete | 110.456 ms | 1.3636 ms | 1.0646 ms |  200.0000 |         - |        - |  3400.44 KB |
+ 
