@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp
+  labels:
+    app: firebrand-web
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      service: webapp
+  template:
+    metadata:
+      labels:
+        app: firebrand-web
+        service: webapp
+    spec:
+      containers:
+        - name: webapp
+          image: uurdemir/firebrandweb:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 443
+              protocol: TCP
+          env:
+            - name: ASPNETCORE_URLS
+              value: http://+:443
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapp
+  labels:
+    app: firebrand-web
+    service: webapp
+spec:
+  ports:
+    - port: 443
+      targetPort: 443
+      protocol: TCP
+  selector:
+    service: webapp

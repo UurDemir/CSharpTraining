@@ -1,10 +1,9 @@
-﻿namespace DependencyInjection.Pages
+﻿namespace DependencyInjection;
+
+public class Mathematic2 : IMathematic
 {
-    public class Mathematic2 : IMathematic
+    public int Calculate()
     {
-        public int Calculate()
-        {
-            return 12;
-        }
+        return 12;
     }
 }

@@ -1,98 +1,99 @@
 ﻿// Author       : Nick Chapsas
 // Youtube      : https://www.youtube.com/watch?v=er9nD-usM1A&ab_channel=NickChapsas
 
-
 using System.Reflection;
-
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Running;
+using Performance.Reflaction;
 
 BenchmarkRunner.Run<ReflectionBenchmark>();
 
-public class ReflectionBenchmark
+namespace Performance.Reflaction
 {
-    [Benchmark]
-    public void PropertyCalling()
+    public class ReflectionBenchmark
     {
-        ReflectionExample.PropertyCalling();
+        [Benchmark]
+        public void PropertyCalling()
+        {
+            ReflectionExample.PropertyCalling();
+        }
+
+        [Benchmark]
+        public void TraditionalReflection()
+        {
+            ReflectionExample.TraditionalReflection();
+        }
+
+
+        [Benchmark]
+        public void OptimizedTraditionalReflection()
+        {
+            ReflectionExample.OptimizedTraditionalReflection();
+        }
+
+
+        [Benchmark]
+        public void CompiledGetterReflection()
+        {
+            ReflectionExample.CompiledGetterReflection();
+        }
     }
 
-    [Benchmark]
-    public void TraditionalReflection()
+    public class ReflectionExample
     {
-        ReflectionExample.TraditionalReflection();
-    }
+        public static string PropertyCalling()
+        {
+            var container = new SecretsContainer();
 
+            return container.RevealedTruth;
+        }
 
-    [Benchmark]
-    public void OptimizedTraditionalReflection()
-    {
-        ReflectionExample.OptimizedTraditionalReflection();
-    }
+        public static string TraditionalReflection()
+        {
+            var container = new SecretsContainer();
 
+            var propertyInfo = container.GetType()
+                .GetProperty("Secret", BindingFlags.Instance | BindingFlags.NonPublic);
 
-    [Benchmark]
-    public void CompiledGetterReflection()
-    {
-        ReflectionExample.CompiledGetterReflection();
-    }
-}
+            var value = propertyInfo!.GetValue(container);
 
-public class ReflectionExample
-{
-    public static string PropertyCalling()
-    {
-        var container = new SecretsContainer();
+            return value!.ToString() ?? string.Empty;
+        }
 
-        return container.RevealedTruth;
-    }
+        private static readonly PropertyInfo SecretPropertyInfo = typeof(SecretsContainer)
+            .GetProperty("Secret", BindingFlags.Instance | BindingFlags.NonPublic)!;
 
-    public static string TraditionalReflection()
-    {
-        var container = new SecretsContainer();
+        public static string OptimizedTraditionalReflection()
+        {
+            var container = new SecretsContainer();
 
-        var propertyInfo = container.GetType()
-            .GetProperty("Secret", BindingFlags.Instance | BindingFlags.NonPublic);
+            var value = SecretPropertyInfo.GetValue(container);
 
-        var value = propertyInfo!.GetValue(container);
+            return value!.ToString() ?? string.Empty;
+        }
 
-        return value!.ToString() ?? string.Empty;
-    }
-
-    private static readonly PropertyInfo SecretPropertyInfo = typeof(SecretsContainer)
-        .GetProperty("Secret", BindingFlags.Instance | BindingFlags.NonPublic)!;
-
-    public static string OptimizedTraditionalReflection()
-    {
-        var container = new SecretsContainer();
-
-        var value = SecretPropertyInfo.GetValue(container);
-
-        return value!.ToString() ?? string.Empty;
-    }
-
-    private static readonly Func<SecretsContainer, string> SecretPropertyGetter =
-        (Func<SecretsContainer, string>)
+        private static readonly Func<SecretsContainer, string> SecretPropertyGetter =
+            (Func<SecretsContainer, string>)
             typeof(SecretsContainer)
                 .GetMethod("get_Secret", BindingFlags.Instance | BindingFlags.NonPublic)!
                 .CreateDelegate(typeof(Func<SecretsContainer, string>));
 
 
-    public static string CompiledGetterReflection()
+        public static string CompiledGetterReflection()
+        {
+            var container = new SecretsContainer();
+
+            var value = SecretPropertyGetter(container);
+
+            return value;
+        }
+    }
+
+
+    public class SecretsContainer
     {
-        var container = new SecretsContainer();
+        private string Secret { get; set; } = "Earth is flat!";
 
-        var value = SecretPropertyGetter(container);
-
-        return value;
+        public string RevealedTruth => Secret;
     }
 }
-
-
-public class SecretsContainer
-{
-    private string Secret { get; set; } = "Earth is flat!";
-
-    public string RevealedTruth => Secret;
-}
-

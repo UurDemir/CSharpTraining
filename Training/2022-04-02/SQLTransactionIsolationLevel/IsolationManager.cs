@@ -8,192 +8,191 @@ using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 using SQLTransactionIsolationLevel.Models;
 
-namespace SQLTransactionIsolationLevel
+namespace SQLTransactionIsolationLevel;
+
+public class IsolationManager
 {
-    public class IsolationManager
+    private const string ConnectionStringName = "IsolationDatabase";
+
+    private readonly SqlConnection _connection;
+    private SqlTransaction _sqlTransaction;
+    private readonly IsolationLevel _isolationLevel;
+
+    private static readonly Random Random = new Random();
+
+    public IsolationManager(IsolationLevel isolationLevel)
     {
-        private const string ConnectionStringName = "IsolationDatabase";
+        _isolationLevel = isolationLevel;
+        _connection = new SqlConnection(ConfigurationManager.ConnectionStrings[ConnectionStringName].ConnectionString);
+        _connection.Open();
 
-        private readonly SqlConnection _connection;
-        private SqlTransaction _sqlTransaction;
-        private readonly IsolationLevel _isolationLevel;
+        _sqlTransaction = _connection.BeginTransaction(isolationLevel);
+    }
 
-        private static readonly Random Random = new Random();
-
-        public IsolationManager(IsolationLevel isolationLevel)
+    public async Task<List<Member>> FetchMembers()
+    {
+        return await Task.Run(() =>
         {
-            _isolationLevel = isolationLevel;
-            _connection = new SqlConnection(ConfigurationManager.ConnectionStrings[ConnectionStringName].ConnectionString);
-            _connection.Open();
-
-            _sqlTransaction = _connection.BeginTransaction(isolationLevel);
-        }
-
-        public async Task<List<Member>> FetchMembers()
-        {
-            return await Task.Run(() =>
+            var memberList = new List<Member>();
+            try
             {
-                var memberList = new List<Member>();
-                try
+                var selectCommand = CreateTransactionCommand("Select * From Members");
+
+                using (var dataReader = selectCommand.ExecuteReader())
                 {
-                    var selectCommand = CreateTransactionCommand("Select * From Members");
-
-                    using (var dataReader = selectCommand.ExecuteReader())
+                    if (dataReader.HasRows)
                     {
-                        if (dataReader.HasRows)
+                        while (dataReader.Read())
                         {
-                            while (dataReader.Read())
+                            var member = new Member
                             {
-                                var member = new Member
-                                {
-                                    Id = int.Parse(dataReader["Id"].ToString()),
-                                    Name = dataReader["Name"].ToString(),
-                                    Surname = dataReader["Surname"].ToString(),
-                                    Age = int.Parse(dataReader["Age"].ToString()),
-                                    Status = int.Parse(dataReader["Status"].ToString())
-                                };
-                                memberList.Add(member);
-                            }
+                                Id = int.Parse(dataReader["Id"].ToString()),
+                                Name = dataReader["Name"].ToString(),
+                                Surname = dataReader["Surname"].ToString(),
+                                Age = int.Parse(dataReader["Age"].ToString()),
+                                Status = int.Parse(dataReader["Status"].ToString())
+                            };
+                            memberList.Add(member);
                         }
-
                     }
 
                 }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.Message);
-                }
 
-                return memberList;
-            });
-
-        }
-
-        public async Task<List<Member>> FetchMembersWithoutFirst()
-        {
-            return await Task.Run(() =>
+            }
+            catch (Exception e)
             {
-                var memberList = new List<Member>();
-                try
+                MessageBox.Show(e.Message);
+            }
+
+            return memberList;
+        });
+
+    }
+
+    public async Task<List<Member>> FetchMembersWithoutFirst()
+    {
+        return await Task.Run(() =>
+        {
+            var memberList = new List<Member>();
+            try
+            {
+                var selectCommand = CreateTransactionCommand("Select * From Members Where Id != 1");
+
+                using (var dataReader = selectCommand.ExecuteReader())
                 {
-                    var selectCommand = CreateTransactionCommand("Select * From Members Where Id != 1");
-
-                    using (var dataReader = selectCommand.ExecuteReader())
+                    if (dataReader.HasRows)
                     {
-                        if (dataReader.HasRows)
+                        while (dataReader.Read())
                         {
-                            while (dataReader.Read())
+                            var member = new Member
                             {
-                                var member = new Member
-                                {
-                                    Id = int.Parse(dataReader["Id"].ToString()),
-                                    Name = dataReader["Name"].ToString(),
-                                    Surname = dataReader["Surname"].ToString(),
-                                    Age = int.Parse(dataReader["Age"].ToString()),
-                                    Status = int.Parse(dataReader["Status"].ToString())
-                                };
-                                memberList.Add(member);
-                            }
+                                Id = int.Parse(dataReader["Id"].ToString()),
+                                Name = dataReader["Name"].ToString(),
+                                Surname = dataReader["Surname"].ToString(),
+                                Age = int.Parse(dataReader["Age"].ToString()),
+                                Status = int.Parse(dataReader["Status"].ToString())
+                            };
+                            memberList.Add(member);
                         }
-
                     }
 
                 }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.Message);
-                }
 
-                return memberList;
-            });
-
-        }
-
-        public async Task InsertMember()
-        {
-            await Task.Run(() =>
+            }
+            catch (Exception e)
             {
-                try
-                {
-                    var insertCommand = CreateTransactionCommand("Insert Into Members(Name,Surname,Age,Status) Values(@Name,@Surname,@Age,@Status)");
-                    insertCommand.Parameters.AddWithValue("@Name", RandomString(15));
-                    insertCommand.Parameters.AddWithValue("@Surname", RandomString(15));
-                    insertCommand.Parameters.AddWithValue("@Age", Random.Next(25));
-                    insertCommand.Parameters.AddWithValue("@Status", Random.Next(5));
-                    insertCommand.ExecuteNonQuery();
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.Message);
-                    throw;
-                }
-            });
-        }
+                MessageBox.Show(e.Message);
+            }
 
-        public async Task UpdateMember()
+            return memberList;
+        });
+
+    }
+
+    public async Task InsertMember()
+    {
+        await Task.Run(() =>
         {
-            await Task.Run(() =>
+            try
             {
-                try
-                {
-                    var insertCommand = CreateTransactionCommand("Update Members Set Age = @Age Where Id = 1");
-                    insertCommand.Parameters.AddWithValue("@Age", Random.Next(25));
-                    insertCommand.ExecuteNonQuery();
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.Message);
-                    throw;
-                }
-            });
-        }
-
-        public async Task Commit()
-        {
-            await Task.Run(() =>
+                var insertCommand = CreateTransactionCommand("Insert Into Members(Name,Surname,Age,Status) Values(@Name,@Surname,@Age,@Status)");
+                insertCommand.Parameters.AddWithValue("@Name", RandomString(15));
+                insertCommand.Parameters.AddWithValue("@Surname", RandomString(15));
+                insertCommand.Parameters.AddWithValue("@Age", Random.Next(25));
+                insertCommand.Parameters.AddWithValue("@Status", Random.Next(5));
+                insertCommand.ExecuteNonQuery();
+            }
+            catch (Exception e)
             {
-                try
-                {
-                    _sqlTransaction.Commit();
-                    _sqlTransaction = _connection.BeginTransaction(_isolationLevel);
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.Message);
-                }
-            });
-        }
+                MessageBox.Show(e.Message);
+                throw;
+            }
+        });
+    }
 
-        public async Task RollBack()
+    public async Task UpdateMember()
+    {
+        await Task.Run(() =>
         {
-            await Task.Run(() =>
+            try
             {
-                try
-                {
-                    _sqlTransaction.Rollback();
-                    _sqlTransaction = _connection.BeginTransaction(_isolationLevel);
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.Message);
-                }
-            });
-        }
+                var insertCommand = CreateTransactionCommand("Update Members Set Age = @Age Where Id = 1");
+                insertCommand.Parameters.AddWithValue("@Age", Random.Next(25));
+                insertCommand.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                throw;
+            }
+        });
+    }
 
-        public static string RandomString(int length)
+    public async Task Commit()
+    {
+        await Task.Run(() =>
         {
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            return new string(Enumerable.Repeat(chars, length)
-                .Select(s => s[Random.Next(s.Length)]).ToArray());
-        }
+            try
+            {
+                _sqlTransaction.Commit();
+                _sqlTransaction = _connection.BeginTransaction(_isolationLevel);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        });
+    }
 
-        private SqlCommand CreateTransactionCommand(string command)
+    public async Task RollBack()
+    {
+        await Task.Run(() =>
         {
-            var selectCommand = _connection.CreateCommand();
-            selectCommand.CommandText = command;
-            selectCommand.Connection = _connection;
-            selectCommand.Transaction = _sqlTransaction;
-            return selectCommand;
-        }
+            try
+            {
+                _sqlTransaction.Rollback();
+                _sqlTransaction = _connection.BeginTransaction(_isolationLevel);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        });
+    }
+
+    public static string RandomString(int length)
+    {
+        const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        return new string(Enumerable.Repeat(chars, length)
+            .Select(s => s[Random.Next(s.Length)]).ToArray());
+    }
+
+    private SqlCommand CreateTransactionCommand(string command)
+    {
+        var selectCommand = _connection.CreateCommand();
+        selectCommand.CommandText = command;
+        selectCommand.Connection = _connection;
+        selectCommand.Transaction = _sqlTransaction;
+        return selectCommand;
     }
 }

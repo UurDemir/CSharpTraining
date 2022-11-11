@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32210.238
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Firebrand.API", "Firebrand.API\Firebrand.API.csproj", "{8BA9B7F1-4DF0-41FC-88C3-93827D086F9E}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{D2216ECF-5F3A-449E-9043-E6307B6E202F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Firebrand.Web", "Firebrand.Web\Firebrand.Web.csproj", "{CAFF9AA4-6917-420E-9727-B0647871D0EF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".SolutionItems", ".SolutionItems", "{EBFDB627-87CE-4E39-A08B-48F814C18712}"
+	ProjectSection(SolutionItems) = preProject
+		deployment-api.yaml = deployment-api.yaml
+		deployment-web.yaml = deployment-web.yaml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8BA9B7F1-4DF0-41FC-88C3-93827D086F9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BA9B7F1-4DF0-41FC-88C3-93827D086F9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BA9B7F1-4DF0-41FC-88C3-93827D086F9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BA9B7F1-4DF0-41FC-88C3-93827D086F9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2216ECF-5F3A-449E-9043-E6307B6E202F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2216ECF-5F3A-449E-9043-E6307B6E202F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2216ECF-5F3A-449E-9043-E6307B6E202F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2216ECF-5F3A-449E-9043-E6307B6E202F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAFF9AA4-6917-420E-9727-B0647871D0EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAFF9AA4-6917-420E-9727-B0647871D0EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAFF9AA4-6917-420E-9727-B0647871D0EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAFF9AA4-6917-420E-9727-B0647871D0EF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B0E5E26C-2421-4CFB-8695-AC6438CE5CEB}
+	EndGlobalSection
+EndGlobal

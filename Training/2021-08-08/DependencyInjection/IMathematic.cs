@@ -1,7 +1,6 @@
-﻿namespace DependencyInjection.Pages
+﻿namespace DependencyInjection;
+
+public interface IMathematic
 {
-    public interface IMathematic
-    {
-        int Calculate();
-    }
+    int Calculate();
 }

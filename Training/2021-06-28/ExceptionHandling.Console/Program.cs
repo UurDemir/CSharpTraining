@@ -2,137 +2,119 @@
 using System.Diagnostics;
 using System.Runtime.ExceptionServices;
 
-namespace ExceptionHandling.Consol
+namespace ExceptionHandling.Consol;
+
+class Program
 {
-    class Program
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
+
+    }
+
+    #region FailFast
+    private static void TestFailFast()
+    {
+        try
+        {
+            TryCatchFinally(false);
+        }
+        catch (Exception)
         {
 
         }
-
-        #region FailFast
-        private static void TestFailFast()
+        try
         {
-            try
-            {
-                TryCatchFinally(false);
-            }
-            catch (Exception)
-            {
-
-            }
-            try
-            {
-                TryCatchFinally(true);
-            }
-            catch (Exception)
-            {
-
-            }
+            TryCatchFinally(true);
         }
-
-        private static void TryCatchFinally(bool ignoreFinally)
+        catch (Exception)
         {
-            try
-            {
-                throw new NotImplementedException();
-            }
-            catch (Exception exception)
-            {
-                if (ignoreFinally) Environment.FailFast("Finally block will not run", exception);
 
-                throw;
-            }
-            finally
-            {
-                Console.WriteLine("Finally Block");
-            }
-
-
-            Console.WriteLine("Other Block");
-        } 
-        #endregion
-
-        #region ExceptionDispatchInfo
-        private static void ThrowDispatch(ExceptionDispatchInfo dispatchInfo)
-        {
-            try
-            {
-                dispatchInfo.Throw();
-            }
-            catch (Exception exception)
-            {
-
-                throw;
-            }
         }
-        private static ExceptionDispatchInfo ExceptionDispatchInfoTest()
+    }
+
+    private static void TryCatchFinally(bool ignoreFinally)
+    {
+        try
         {
-            ExceptionDispatchInfo captureContext;
-            try
-            {
-                throw new NotImplementedException();
-            }
-            catch (Exception exception)
-            {
-                captureContext = ExceptionDispatchInfo.Capture(exception);
-            }
-            return captureContext;
+            throw new NotImplementedException();
         }
-
-        private static void TestExceptionDispatchInfo()
+        catch (Exception exception)
         {
-            var dispatchInfo = ExceptionDispatchInfoTest();
-            ThrowDispatch(dispatchInfo);
+            if (ignoreFinally) Environment.FailFast("Finally block will not run", exception);
+
+            throw;
         }
-
-        #endregion
-
-        #region  StackTrace
-        private static int Method3()
+        finally
         {
-            int number = Method2();
-            return number + 1;
-        }
-        private static int Method2()
-        {
-            int number = Method1();
-            return number + 1;
-        }
-        private static int Method1()
-        {
-            int number = GetStackTrace();
-            return number + 1;
-        }
-
-        private static int ThrowException()
-        {
-            try
-            {
-                throw new("Throwed Exception");
-            }
-            catch (Exception exception)
-            {
-                StackTrace stackTract = new(exception, true);
-                StackFrame[] stackFrames = stackTract.GetFrames();
-
-                foreach (var stackFrame in stackFrames)
-                {
-
-                }
-
-
-                throw;
-            }
-            return 40;
+            Console.WriteLine("Finally Block");
         }
 
 
+        Console.WriteLine("Other Block");
+    } 
+    #endregion
 
-        private static int GetStackTrace()
+    #region ExceptionDispatchInfo
+    private static void ThrowDispatch(ExceptionDispatchInfo dispatchInfo)
+    {
+        try
         {
-            StackTrace stackTract = new(true);
+            dispatchInfo.Throw();
+        }
+        catch (Exception exception)
+        {
+
+            throw;
+        }
+    }
+    private static ExceptionDispatchInfo ExceptionDispatchInfoTest()
+    {
+        ExceptionDispatchInfo captureContext;
+        try
+        {
+            throw new NotImplementedException();
+        }
+        catch (Exception exception)
+        {
+            captureContext = ExceptionDispatchInfo.Capture(exception);
+        }
+        return captureContext;
+    }
+
+    private static void TestExceptionDispatchInfo()
+    {
+        var dispatchInfo = ExceptionDispatchInfoTest();
+        ThrowDispatch(dispatchInfo);
+    }
+
+    #endregion
+
+    #region  StackTrace
+    private static int Method3()
+    {
+        int number = Method2();
+        return number + 1;
+    }
+    private static int Method2()
+    {
+        int number = Method1();
+        return number + 1;
+    }
+    private static int Method1()
+    {
+        int number = GetStackTrace();
+        return number + 1;
+    }
+
+    private static int ThrowException()
+    {
+        try
+        {
+            throw new("Throwed Exception");
+        }
+        catch (Exception exception)
+        {
+            StackTrace stackTract = new(exception, true);
             StackFrame[] stackFrames = stackTract.GetFrames();
 
             foreach (var stackFrame in stackFrames)
@@ -140,8 +122,25 @@ namespace ExceptionHandling.Consol
 
             }
 
-            return 40;
+
+            throw;
         }
-        #endregion
+        return 40;
     }
+
+
+
+    private static int GetStackTrace()
+    {
+        StackTrace stackTract = new(true);
+        StackFrame[] stackFrames = stackTract.GetFrames();
+
+        foreach (var stackFrame in stackFrames)
+        {
+
+        }
+
+        return 40;
+    }
+    #endregion
 }

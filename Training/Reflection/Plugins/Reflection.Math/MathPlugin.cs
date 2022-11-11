@@ -1,34 +1,33 @@
 ﻿using Reflection.Shared;
 using System;
 
-namespace Reflection.Math
+namespace Reflection.Math;
+
+public class MathPlugin : IPlugin
 {
-    public class MathPlugin : IPlugin
+    public string PluginName => "Math Plugin";
+
+    public string Data { get; set; }
+
+    public string PluginDescription => "Sayıyı kendisi ile çarpar.";
+
+    public void Invoke()
     {
-        public string PluginName => "Math Plugin";
-
-        public string Data { get; set; }
-
-        public string PluginDescription => "Sayıyı kendisi ile çarpar.";
-
-        public void Invoke()
+        if (string.IsNullOrEmpty(Data))
         {
-            if (string.IsNullOrEmpty(Data))
-            {
-                Console.WriteLine("Data sağlanmadı");
-                return;
-            }
-
-            Invoke(Data);
+            Console.WriteLine("Data sağlanmadı");
+            return;
         }
 
-        public void Invoke(string parameter)
-        {
-            int number = int.Parse(parameter);
+        Invoke(Data);
+    }
 
-            int result = number * number;
+    public void Invoke(string parameter)
+    {
+        int number = int.Parse(parameter);
 
-            Console.WriteLine("Plugin Sonucu : " + result);
-        }
+        int result = number * number;
+
+        Console.WriteLine("Plugin Sonucu : " + result);
     }
 }

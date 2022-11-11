@@ -5,10 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 
-namespace Redis.Benchmark
+namespace Redis.Benchmark;
+
+public static class CommonHelper
 {
-    public static class CommonHelper
-    {
-        public static IConfigurationRoot Configuration;
-    }
+    public static IConfigurationRoot Configuration;
 }

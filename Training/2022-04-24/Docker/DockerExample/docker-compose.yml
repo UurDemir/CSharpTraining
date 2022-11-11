@@ -1,0 +1,16 @@
+version: '3.4'
+
+services:
+  firebrand.api:
+    image: ${DOCKER_REGISTRY-}firebrandapi
+    build:
+      context: .
+      dockerfile: Firebrand.API/Dockerfile
+
+  firebrand.web:
+    image: ${DOCKER_REGISTRY-}firebrandweb
+    build:
+      context: .
+      dockerfile: Firebrand.Web/Dockerfile
+    ports:
+        - "62553:443"
