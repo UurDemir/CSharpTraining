@@ -1,0 +1,72 @@
+﻿@page "/employeeedit/{Id:int}"
+@using AdventureW.BackOffice.Model;
+@using AdventureW.BackOffice.Services;
+@using Microsoft.AspNetCore.Mvc.Rendering;
+@inject EmployeeService EmployeeService;
+@inject NavigationManager NavigationManager;
+
+<h3>@employeeEdit.FirstName @employeeEdit.MiddleName @employeeEdit.LastName</h3>
+
+<EditForm Model="@employeeEdit" OnValidSubmit="UpdateEmployee">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="mb-3 col-6">
+        <label class="form-label">Super Visor</label>
+        <InputSelect @bind-Value="@employeeEdit.SuperVisorId" class="form-control">
+            @foreach (var superVisorItem in superVisorList)
+            {
+                <option value="@superVisorItem.Value">@superVisorItem.Text</option>
+            }
+        </InputSelect>
+    </div>
+    <div class="mb-3 col-6">
+        <label class="form-label">First Name</label>
+        <InputText @bind-Value="@employeeEdit.FirstName" class="form-control" />
+    </div>
+    <div class="mb-3 col-6">
+        <label class="form-label">Middle Name</label>
+        <InputText @bind-Value="@employeeEdit.MiddleName" class="form-control" />
+    </div>
+    <div class="mb-3 col-6">
+        <label class="form-label">Last Name</label>
+        <InputText @bind-Value="@employeeEdit.LastName" class="form-control" />
+    </div>
+    <div class="mb-3 col-6">
+        <label class="form-label">Title</label>
+        <InputText @bind-Value="@employeeEdit.Title" class="form-control" />
+    </div>
+    <div class="mb-3 col-6">
+        <label class="form-label">Birth Date</label>
+        <InputDate @bind-Value="@employeeEdit.BirthDate" class="form-control" />
+    </div>
+    <div class="mb-3 col-6">
+        <label class="form-label">Hire Date</label>
+        <InputDate @bind-Value="@employeeEdit.HireDate" class="form-control" />
+    </div>
+    <div class="mb-3 col-12">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</EditForm>
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+    private EmployeeEditModel employeeEdit { get; set; } = new EmployeeEditModel();
+    private IEnumerable<SelectListItem> superVisorList = new SelectListItem[0];
+
+    protected async override Task OnInitializedAsync()
+    {
+        employeeEdit = await EmployeeService.GetEmployeeAsync(Id);
+        superVisorList = await EmployeeService.GetEmployeeSelectList();
+    }
+
+    private async Task UpdateEmployee()
+    {
+        bool result = await EmployeeService.UpdateEmployee(employeeEdit);
+
+        if (result)
+            NavigationManager.NavigateTo("/employeelist");
+
+    }
+}

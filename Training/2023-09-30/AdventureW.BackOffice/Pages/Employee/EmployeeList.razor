@@ -1,0 +1,23 @@
+﻿@page "/employeelist"
+@using AdventureW.BackOffice.Components.Common
+@using AdventureW.BackOffice.Components.Employee
+@using AdventureW.BackOffice.Model;
+@using AdventureW.BackOffice.Services;
+@inject EmployeeService EmployeeService;
+
+<h3>Employee List</h3>
+
+<DataList ItemPerRow="3" TItem="EmployeeSummaryInfo" Data="employeeSummaries">
+    <ItemTemplate>
+        <EmployeeCard Summary="@context"/>
+    </ItemTemplate>
+</DataList>
+
+@code {
+    private IEnumerable<EmployeeSummaryInfo>? employeeSummaries;
+
+    protected async override Task OnInitializedAsync()
+    {
+        employeeSummaries = await EmployeeService.GetEmployeeListAsync(6, 12);
+    }
+}

@@ -1,0 +1,32 @@
+﻿@typeparam TItem
+
+@if (Data == null)
+{
+    <div class="spinner-grow text-info loader" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+}
+else 
+{
+    <div class="row">
+        @foreach (var item in Data)
+        {
+            <div class="col-@_col mb-3">
+                @ItemTemplate!(item)
+            </div>
+        }
+    </div>
+}
+
+@code {
+    [Parameter]
+    public RenderFragment<TItem>? ItemTemplate { get; set; } = null;
+
+    [Parameter]
+    public int ItemPerRow { get; set; } = 3;
+
+    [Parameter]
+    public IEnumerable<TItem>? Data { get; set; }
+
+    private int _col => 12 / ItemPerRow;
+}

@@ -52,6 +52,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Redis.Benchmark", "2022-03-
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".SolutionItems", ".SolutionItems", "{493DDD73-90A3-4569-B338-DA984F1BB03E}"
 	ProjectSection(SolutionItems) = preProject
+		Notes.txt = Notes.txt
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
@@ -103,6 +104,13 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EF6", "NET7\EF\EF6\EF6.csproj", "{712AC2B3-2771-4B43-86B1-4AF955711396}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EF7", "NET7\EF\EF7\EF7.csproj", "{5BB594D3-AFC0-4CD7-825D-087ECDB427CD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2023-09-30", "2023-09-30", "{AC96D051-407F-4785-A682-249281EFDF37}"
+	ProjectSection(SolutionItems) = preProject
+		Homework.txt = Homework.txt
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventureW.BackOffice", "2023-09-30\AdventureW.BackOffice\AdventureW.BackOffice.csproj", "{2D581CE7-C8D6-46F0-B825-24EBEA6560D2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -312,6 +320,14 @@ Global
 		{5BB594D3-AFC0-4CD7-825D-087ECDB427CD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5BB594D3-AFC0-4CD7-825D-087ECDB427CD}.Release|x64.ActiveCfg = Release|Any CPU
 		{5BB594D3-AFC0-4CD7-825D-087ECDB427CD}.Release|x64.Build.0 = Release|Any CPU
+		{2D581CE7-C8D6-46F0-B825-24EBEA6560D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D581CE7-C8D6-46F0-B825-24EBEA6560D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D581CE7-C8D6-46F0-B825-24EBEA6560D2}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2D581CE7-C8D6-46F0-B825-24EBEA6560D2}.Debug|x64.Build.0 = Debug|Any CPU
+		{2D581CE7-C8D6-46F0-B825-24EBEA6560D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D581CE7-C8D6-46F0-B825-24EBEA6560D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D581CE7-C8D6-46F0-B825-24EBEA6560D2}.Release|x64.ActiveCfg = Release|Any CPU
+		{2D581CE7-C8D6-46F0-B825-24EBEA6560D2}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -348,6 +364,7 @@ Global
 		{D33E940E-2FA7-46AB-8241-CFBB7A564984} = {F4D84B1B-B562-489F-BCC4-D49A4D3FE883}
 		{712AC2B3-2771-4B43-86B1-4AF955711396} = {D33E940E-2FA7-46AB-8241-CFBB7A564984}
 		{5BB594D3-AFC0-4CD7-825D-087ECDB427CD} = {D33E940E-2FA7-46AB-8241-CFBB7A564984}
+		{2D581CE7-C8D6-46F0-B825-24EBEA6560D2} = {AC96D051-407F-4785-A682-249281EFDF37}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7862FE01-025B-470B-84C7-732952C2185D}

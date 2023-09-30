@@ -1,0 +1,2 @@
+Veritabanýndan bir tablo seçilerek listeleme ve güncelleme ekraný yapýlacak istenirse ekleme
+Form Input elementleri Component haline getirilerek Display Attribute ünün çalýþmasý saðlanacak.

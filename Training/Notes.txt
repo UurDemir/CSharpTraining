@@ -1,0 +1,9 @@
+--> Database First Generation Script
+
+Required References :
+Microsoft.EntityFrameworkCore.SqlServer
+Microsoft.EntityFrameworkCore.Tools
+
+Generation Script :
+Package Manager Console
+Scaffold-DbContext "Data Source=.;Initial Catalog=AdventureWorksDW2017;Integrated Security=True;TrustServerCertificate=True" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Model -Project BLZ.Data -StartupProject BLZ.Data -Context "AdventureContext" -DataAnnotations 
