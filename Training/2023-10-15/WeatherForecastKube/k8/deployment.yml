@@ -1,0 +1,27 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: weatherforecastdeployment
+    labels:
+        app: weatherforecast
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: weatherforecast
+    template:
+        metadata:
+            labels:
+                app: weatherforecast
+        spec:
+            containers:
+                - name: weatherforecastcontainer
+                  image: uurdemir/weatherforecast:1.0.0.0
+                  imagePullPolicy: Always
+                  ports:
+                  - containerPort: 80
+                  resources:
+                    limits:
+                        cpu: 500m
+                    requests:
+                        cpu: 200m
