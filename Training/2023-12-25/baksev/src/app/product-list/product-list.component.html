@@ -1,0 +1,13 @@
+<span *ngIf="!productList">Loading...</span>
+<div class="card-list" *ngIf="productList">
+  <span *ngIf="productList.length == 0">Empty Data</span>
+  <div class="card" *ngFor="let product of productList">
+    <h3 class="card-title">{{ product.title }}</h3>
+    <span class="card-subTitle">{{ product.category | uppercase }}</span>
+    <img class="card-img" src="{{ product.image }}" />
+    <p class="card-description">{{ product.description }}</p>
+    <span class="card-price"
+      >{{ product.price | currency : "TRY" : "symbol-narrow" }}
+    </span>
+  </div>
+</div>
