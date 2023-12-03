@@ -1,0 +1,19 @@
+<div *ngFor="let user of users">
+  <label
+    >{{ user.username }} - {{ user.name.firstname }}
+    {{ user.name.lastname }}</label
+  >
+  <input type="radio" [value]="user" [(ngModel)]="selectedUser" />
+</div>
+
+<span *ngIf="!productList">Loading...</span>
+<div class="card-list" *ngIf="productList">
+  <span *ngIf="productList.length == 0">Empty Data</span>
+  <app-basket-product
+    *ngFor="let product of productList"
+    [basketProduct]="product"
+    [inBasketPage]="false"
+  ></app-basket-product>
+
+  <button (click)="completeOrder()">Complete Order</button>
+</div>

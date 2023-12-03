@@ -1,0 +1,20 @@
+.card {
+  width: 250px;
+  border: 1px solid #000;
+  margin-bottom: 10px;
+  padding: 10px 10px 10px 10px;
+}
+
+.card-img {
+  width: 150px;
+  height: 200px;
+  display: block;
+}
+
+.card-title {
+  font-weight: bolder;
+}
+
+.card-subTitle {
+  font-weight: bold;
+}

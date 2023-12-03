@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Product } from '../../models/product';
 import { Observable } from 'rxjs';
+import { User } from '../../models/user';
 
 @Injectable({
   providedIn: 'root',
@@ -23,5 +24,9 @@ export class StoreService {
 
   getCategories(): Observable<string[]> {
     return this.httpClient.get<string[]>(this.baseUrl + '/products/categories');
+  }
+
+  getAllUsers(): Observable<User[]> {
+    return this.httpClient.get<User[]>(this.baseUrl + '/users');
   }
 }

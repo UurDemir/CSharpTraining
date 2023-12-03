@@ -1,0 +1,34 @@
+<div class="card">
+  <h3 class="card-title">{{ product!.title }}</h3>
+  <span class="card-subTitle">{{ product!.category | uppercase }}</span>
+  <img class="card-img" src="{{ product!.image }}" />
+  <p class="card-description">{{ product!.description }}</p>
+  <span class="card-price"
+    >{{ product!.price | currency : "TRY" : "symbol-narrow" }}
+  </span>
+  <div class="input-group mb-3">
+    <button
+      class="btn btn-outline-secondary"
+      type="button"
+      (click)="addToBasket(-1)"
+    >
+      <
+    </button>
+    <input
+      type="number"
+      min="0"
+      [(ngModel)]="count"
+      (change)="countChange()"
+      class="form-control"
+      placeholder=""
+      aria-label="Example text with two button addons"
+    />
+    <button
+      class="btn btn-outline-secondary"
+      type="button"
+      (click)="addToBasket(1)"
+    >
+      >
+    </button>
+  </div>
+</div>
